@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+<title>Panduan Kurban Lengkap + Kalkulator</title>
+<style>
+:root{
+  --bg:#FBFBFB;
+  --card:#FFFFFF;
+  --ink:#1D3557;
+  --mute:#457B9D;
+  --line:#C6E7FF;
+  --red:#1D3557;
+  --green:#70A9A1;
+  --gold:#E9C46A;
+  --soft:#D4F6FF;
+  --warn:#FFDDAD;
+  --on:#1D3557;
+  --bad:#E76F51;
+  --hero:#C6E7FF;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:60px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.55}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--card);border-bottom:1px solid var(--line);z-index:5;display:flex;gap:6px;overflow-x:auto;padding:8px 12px}
+nav a{white-space:nowrap;color:var(--ink);text-decoration:none;font-size:.9rem;padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--bg)}
+nav a:hover{border-color:var(--mute);background:var(--soft)}
+main{max-width:760px;margin:0 auto;padding:16px}
+header{margin:8px 0 0;padding:26px 20px;border-radius:14px;text-align:center;background-color:var(--hero);background-image:repeating-linear-gradient(45deg,rgba(212,246,255,.4) 0 1px,transparent 1px 22px),repeating-linear-gradient(-45deg,rgba(255,221,173,.3) 0 1px,transparent 1px 22px);border:1px solid var(--line)}
+.bis{font-family:"Amiri","Scheherazade New","Traditional Arabic",serif;font-size:1.8rem;color:#1D3557;margin:0 0 8px}
+h1{font-size:2rem;line-height:1.1;margin:0 0 8px;color:#1D3557}
+.lead{color:#457B9D;margin:0 auto;max-width:56ch}
+h2{font-size:1.5rem;margin:40px 0 4px;color:var(--red)}
+.h2s{color:var(--mute);margin:0 0 16px}
+h3{font-size:1.05rem;margin:0 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;box-shadow:0 2px 8px rgba(198,231,255,0.25)}
+.card p{margin:0;font-size:.95rem}
+.ico{font-size:1.6rem;display:block;margin-bottom:4px}
+.big{font-size:2rem;font-weight:bold;color:var(--mute)}
+.bars .b{display:grid;grid-template-columns:70px 1fr 56px;align-items:center;gap:10px;margin:8px 0;font-size:.95rem}
+.track{background:var(--soft);border-radius:6px;height:22px;overflow:hidden}
+.fill{height:100%;background:var(--mute);border-radius:6px;width:0;transition:width .8s ease}
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.tl div{padding:12px 4px;border-radius:8px;background:var(--card);border:1px solid var(--line);font-size:.85rem}
+.tl .ok{background:var(--soft);color:var(--ink);border-color:var(--mute);font-weight:bold}
+.tl .part{border:2px dashed var(--mute)}
+.tl b{display:block;font-size:1.3rem;color:var(--red)}
+.cacat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.cacat div{text-align:center;border:1px solid var(--line);border-radius:10px;padding:10px 6px;font-size:.9rem;background:var(--card)}
+.cacat span{display:block;font-size:1.7rem}
+.steps{list-style:none;margin:0;padding:0;border-left:3px solid var(--mute);margin-left:14px}
+.steps li{position:relative;padding:0 0 18px 24px}
+.steps li::before{content:attr(data-n);position:absolute;left:-17px;top:0;width:30px;height:30px;border-radius:50%;background:var(--soft);color:var(--ink);border:1px solid var(--mute);font-weight:bold;display:grid;place-items:center;font-size:.9rem}
+.steps li:last-child{padding-bottom:0}
+.steps b{display:block}
+.steps span{color:var(--mute);font-size:.93rem}
+.split{display:grid;grid-template-columns:minmax(180px,240px) 1fr;gap:20px;align-items:center}
+@media(max-width:560px){.split{grid-template-columns:1fr}.tl b{font-size:1.1rem}}
+svg.donut{width:100%;max-width:240px;margin:0 auto;display:block}
+.seg{fill:none;stroke-width:16;cursor:pointer;transition:stroke-width .2s}
+.seg:hover,.seg.on{stroke-width:21}
+.leg{display:flex;flex-direction:column;gap:8px}
+.leg button{font:inherit;text-align:left;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:8px;padding:9px 12px;color:var(--ink);cursor:pointer}
+.leg button.on{border-color:var(--c);background:var(--soft)}
+.leg small{display:block;color:var(--mute)}
+#info{margin-top:12px;padding:12px 14px;border-radius:8px;background:var(--soft);font-size:.95rem;min-height:3.4em;border:1px solid var(--line)}
+.sapi{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:10px 0}
+.sapi div{aspect-ratio:1;border-radius:8px;background:var(--soft);color:var(--ink);border:1px solid var(--line);display:grid;place-items:center;font-weight:bold}
+.sapi div:nth-child(even){background:var(--card)}
+.salah{display:flex;flex-direction:column;gap:10px}
+.salah div{display:grid;grid-template-columns:30px 1fr;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
+.salah .x.ok{color:#2A9D8F}
+.salah .x{color:var(--bad);font-size:1.3rem;font-weight:bold}
+.salah p{margin:0;font-size:.93rem}
+.note{margin-top:32px;padding:14px;background:var(--soft);border:1px solid var(--line);border-radius:10px;font-size:.9rem;color:var(--ink)}
+
+/* Author Card & Profile Picture Styles */
+.author-box{margin-top:24px;padding:24px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-align:center;box-shadow:0 2px 8px rgba(198,231,255,0.3)}
+.profile-pic-container{width:200px;height:200px;margin:0 auto 12px;border-radius:50%;border:2px dashed var(--mute);background:var(--soft);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.profile-pic-container img{width:100%;height:100%;object-fit:cover;display:none} /* Ganti display jadi block kalau sudah diisi tag img */
+.profile-placeholder-text{font-size:.75rem;color:var(--mute);text-align:center;padding:4px}
+.author-box h3{margin:0 0 4px;color:var(--red);font-size:1.2rem}
+.author-box p{margin:0 0 16px;color:var(--mute);font-size:.95rem}
+.social-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.social-links a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:.85rem;padding:6px 14px;border-radius:99px;background:var(--soft);color:var(--ink);border:1px solid var(--line);transition:all .2s}
+.social-links a:hover{background:var(--line);border-color:var(--mute)}
+.social-links svg{width:15px;height:15px;fill:currentColor}
+
+a:focus-visible,button:focus-visible{outline:2px solid var(--mute);outline-offset:2px}
+
+#kalk .card{margin-bottom:14px}
+#kalk h2{font-size:1.1rem;margin:0 0 12px}
+#kalk label{display:block;font-size:.9rem;color:var(--mute);margin-bottom:4px}
+#kalk input{width:100%;font:inherit;font-size:1.05rem;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+#kalk input:focus{outline:2px solid var(--mute);outline-offset:1px}
+#kalk .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#kalk .grp{border-left:4px solid var(--c);padding-left:12px;margin-bottom:14px}
+#kalk .grp:last-child{margin-bottom:0}
+#kalk .quick{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+#kalk .quick button{font:inherit;font-size:.9rem;padding:6px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;cursor:pointer}
+#kalk .quick button:hover{background:var(--soft)}
+#kalk .warn{background:var(--warn);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:14px;display:none;color:#5c3a00}
+#kalk .res{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+#kalk .res:last-of-type{border-bottom:0}
+#kalk .big{font-size:1.5rem;font-weight:bold;color:var(--ink);text-align:right;white-space:nowrap}
+#kalk .small{font-size:.85rem;color:var(--mute)}
+#kalk .roast{margin:12px 0 0;padding:10px 12px;background:var(--soft);border-radius:8px;font-style:italic;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<nav>
+<a href="#aturan">Aturan</a><a href="#hewan">Hewan</a><a href="#waktu">Waktu</a><a href="#bagi">Pembagian</a><a href="#kalkulator">Kalkulator</a>
+</nav>
+<main>
+<header>
+<div class="bis" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+<h1>Panduan Kurban: Aturan hingga Teknis Pembagian</h1>
+<p class="lead">Ringkasan visual mengenai aturan berkurban dan teknis pembagian daging kurban.</p>
+</header>
+
+<h2 id="aturan">Aturan dasar</h2>
+<p class="h2s">Pandangan mayoritas ulama, terutama mazhab Syafi'i.</p>
+<div class="grid">
+<div class="card"><span class="ico">📜</span><h3>Hukum</h3><p>Sunnah muakkad menurut jumhur ulama. Mazhab Hanafi berpendapat bahwa kurban wajib bagi yang mampu.</p></div>
+<div class="card"><span class="ico">🔪</span><h3>Penyembelihan</h3><p>Menggunakan pisau tajam, membaca basmalah dan takbir, serta memperlakukan hewan dengan baik. Upah penjagal tidak boleh diambil dari daging atau kulit.</p></div>
+<div class="card"><span class="ico">💇</span><h3>Bagi yang berkurban</h3><p>Dianjurkan tidak memotong rambut dan kuku sejak 1 Dzulhijjah hingga hewan disembelih (makruh menurut mazhab Syafi'i).</p></div>
+</div>
+
+<h2 id="hewan">Hewan kurban</h2>
+<p class="h2s">Jenis hewan, usia minimal, dan cacat yang tidak diperbolehkan.</p>
+<div class="card bars">
+<h3>Usia minimal (tahun)</h3>
+<div class="b"><span>Unta</span><div class="track"><div class="fill" data-w="100"></div></div><span>5</span></div>
+<div class="b"><span>Sapi</span><div class="track"><div class="fill" data-w="40"></div></div><span>2</span></div>
+<div class="b"><span>Kambing</span><div class="track"><div class="fill" data-w="40"></div></div><span>2</span></div>
+<div class="b"><span>Domba</span><div class="track"><div class="fill" data-w="20"></div></div><span>1</span></div>
+<p class="small" style="color:var(--mute);font-size:.85rem;margin-top:8px">Domba: berusia 1 tahun atau sudah berganti gigi. Kambing/domba untuk 1 orang, sapi/unta boleh untuk 7 orang.</p>
+</div>
+<h3 style="margin-top:16px">Empat cacat yang tidak boleh</h3>
+<div class="cacat">
+<div><span>👁️</span>Buta sebelah yang tampak jelas</div>
+<div><span>🤒</span>Sakit yang tampak jelas</div>
+<div><span>🦵</span>Pincang yang tampak jelas</div>
+<div><span>🦴</span>Sangat kurus</div>
+</div>
+<p style="color:var(--mute);font-size:.9rem">Hewan yang memiliki cacat tersebut tidak sah dijadikan hewan kurban.</p>
+
+<h2 id="waktu">Kapan menyembelih</h2>
+<p class="h2s">Dimulai setelah shalat Idul Adha.</p>
+<div class="tl">
+<div class="part"><b>10</b>Dzulhijjah<br>setelah shalat Id</div>
+<div class="ok"><b>11</b>Tasyrik</div>
+<div class="ok"><b>12</b>Tasyrik</div>
+<div class="part"><b>13</b>Tasyrik<br>(menurut Syafi'i)</div>
+</div>
+<p style="color:var(--mute);font-size:.9rem">Garis putus-putus menandakan adanya perbedaan pendapat mengenai batas waktu. Penyembelihan sebelum shalat Id bernilai sedekah daging biasa, bukan kurban.</p>
+
+<h2 id="bagi">Pembagian daging</h2>
+<p class="h2s">Pembagian sepertiga merupakan anjuran. Klik bagian diagram untuk melihat rinciannya.</p>
+<div class="split">
+<svg class="donut" viewBox="0 0 120 120" role="img" aria-label="Diagram pembagian sepertiga">
+<circle class="seg" data-i="0" cx="60" cy="60" r="40" pathLength="100" stroke="#1D3557" stroke-dasharray="32 68" transform="rotate(-90 60 60)"/>
+<circle class="seg" data-i="1" cx="60" cy="60" r="40" pathLength="100" stroke="#457B9D" stroke-dasharray="32 68" stroke-dashoffset="-33.3" transform="rotate(-90 60 60)"/>
+<circle class="seg" data-i="2" cx="60" cy="60" r="40" pathLength="100" stroke="#70A9A1" stroke-dasharray="32 68" stroke-dashoffset="-66.6" transform="rotate(-90 60 60)"/>
+<text x="60" y="58" text-anchor="middle" font-size="11" fill="var(--ink)" font-family="Georgia,serif">Daging</text>
+<text x="60" y="72" text-anchor="middle" font-size="11" fill="var(--ink)" font-family="Georgia,serif">kurban</text>
+</svg>
+<div class="leg">
+<button style="--c:#1D3557" data-i="0">Shohibul kurban<small>±1/3, dikonsumsi sendiri</small></button>
+<button style="--c:#457B9D" data-i="1">Kerabat &amp; tetangga<small>±1/3, hadiah</small></button>
+<button style="--c:#70A9A1" data-i="2">Fakir miskin<small>±1/3, sedekah</small></button>
+</div>
+</div>
+<div id="info">Klik salah satu bagian diagram untuk melihat rinciannya.</div>
+
+<h2 id="kalkulator">Kalkulator pembagian daging</h2>
+<p class="h2s">Masukkan berat daging dan jumlah penerima untuk mengetahui jatah setiap orang secara otomatis.</p>
+<div id="kalk">
+<div class="card">
+<h2>Total daging</h2>
+<label for="total">Berat daging bersih (kg)</label>
+<input id="total" type="number" inputmode="decimal" min="0" step="any" value="100">
+<div class="quick">
+<button type="button" data-kg="35">Kambing ±35 kg</button>
+<button type="button" data-kg="400">Sapi ±400 kg</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Pembagian (anjuran sepertiga-sepertiga)</h2>
+<div class="grp" style="--c:#1D3557">
+<div class="row">
+<div><label for="p1">Shohibul kurban (%)</label><input id="p1" type="number" inputmode="decimal" min="0" step="any" value="33.33"></div>
+<div><label for="n1">Jumlah orang</label><input id="n1" type="number" inputmode="numeric" min="0" value="7"></div>
+</div></div>
+<div class="grp" style="--c:#457B9D">
+<div class="row">
+<div><label for="p2">Kerabat &amp; tetangga (%)</label><input id="p2" type="number" inputmode="decimal" min="0" step="any" value="33.33"></div>
+<div><label for="n2">Jumlah penerima</label><input id="n2" type="number" inputmode="numeric" min="0" value="40"></div>
+</div></div>
+<div class="grp" style="--c:#70A9A1">
+<div class="row">
+<div><label for="p3">Fakir miskin (%)</label><input id="p3" type="number" inputmode="decimal" min="0" step="any" value="33.34"></div>
+<div><label for="n3">Jumlah penerima</label><input id="n3" type="number" inputmode="numeric" min="0" value="60"></div>
+</div></div>
+</div>
+
+<div class="warn" id="warn"></div>
+
+<div class="card" id="out">
+<h2>Hasil perhitungan</h2>
+<div id="rows"></div>
+<p class="roast" id="roast"></p>
+</div>
+</div>
+
+
+<!-- Informasi Pembuat dengan Tempat Foto Profil & Icon Instagram -->
+<div class="author-box">
+  <div class="profile-pic-container">
+    <!-- Masukkan tag gambar di bawah ini jika ingin menampilkan foto asli, contoh: <img src="foto.jpg" alt="Foto Profil" style="display:block;"> -->
+    <img src="foto.jpeg" alt="Foto Profil" style="display:block;">
+    
+  </div>
+  <h3>Dibuat oleh</h3>
+  <p><b>Muhammad Faza Nursalim</b><br>Rekayasa Perangkat Lunak</p>
+  <div class="social-links">
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/fazaaanrr?stkn=b29tNzNlMTB0NWFk" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Instagram
+    </a>
+  </div>
+</div>
+
+</main>
+
+<script>
+const info=[
+ 'Shohibul kurban boleh mengonsumsi sendiri sekitar sepertiga bagian. Pada kurban nazar, shohibul kurban tidak boleh mengonsumsinya sama sekali.',
+ 'Berupa hadiah untuk kerabat dan tetangga, boleh berupa daging mentah maupun yang sudah dimasak. Penggunaan kupon dapat membantu pemerataan.',
+ 'Dianjurkan berupa daging mentah agar dapat diolah sesuai kebutuhan. Menurut Syafi\'i, menyedekahkan sebagian daging kepada fakir miskin hukumnya wajib, berapa pun jumlahnya.'
+];
+function pick(i){
+ document.querySelectorAll('.seg,.leg button').forEach(e=>e.classList.toggle('on',e.dataset.i==i));
+ document.getElementById('info').textContent=info[i];
+}
+document.querySelectorAll('.seg,.leg button').forEach(e=>e.addEventListener('click',()=>pick(+e.dataset.i)));
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');io.unobserve(x.target)}}),{threshold:.3});
+document.querySelectorAll('.bars').forEach(b=>io.observe(b));
+</script>
+<script>
+(function(){
+
+const $=id=>document.getElementById(id);
+const num=id=>{const v=parseFloat($(id).value);return isFinite(v)&&v>0?v:0};
+const fmtKg=v=>v.toLocaleString('id-ID',{maximumFractionDigits:2})+' kg';
+const fmtG=v=>Math.round(v).toLocaleString('id-ID')+' g';
+const groups=[
+ {n:'Shohibul kurban',c:'#1D3557',p:'p1',q:'n1',unit:'orang'},
+ {n:'Kerabat & tetangga',c:'#457B9D',p:'p2',q:'n2',unit:'penerima'},
+ {n:'Fakir miskin',c:'#70A9A1',p:'p3',q:'n3',unit:'penerima'}
+];
+function hitung(){
+ const total=num('total');
+ const sum=num('p1')+num('p2')+num('p3');
+ const w=$('warn');
+ if(Math.abs(sum-100)>0.05){
+  w.style.display='block';
+  w.textContent=sum>100
+   ?'Total persentase '+sum.toFixed(2)+'%, melebihi 100%. Mohon sesuaikan kembali.'
+   :'Total persentase baru '+sum.toFixed(2)+'%, kurang dari 100%. Mohon sesuaikan kembali.';
+ } else w.style.display='none';
+ let html='';const per=[];
+ groups.forEach(g=>{
+  const kg=total*num(g.p)/100, n=num(g.q);
+  const gram=n>0?kg/n*1000:null;
+  per.push(gram);
+  html+='<div class="res" style="--c:'+g.c+'"><div><b>'+g.n+'</b><div class="small">'+fmtKg(kg)+' dibagi '+n+' '+g.unit+'</div></div>'+
+   '<div class="big">'+(gram===null?'—':fmtG(gram))+'<div class="small">per orang</div></div></div>';
+ });
+ $('rows').innerHTML=html;
+ $('roast').textContent=roast(total,per);
+}
+function roast(total,per){
+ if(total<=0) return 'Berat daging belum diisi. Mohon masukkan berat daging terlebih dahulu.';
+ const hasN=per.filter(x=>x!==null);
+ if(hasN.length<3) return 'Terdapat kelompok dengan jumlah penerima 0. Mohon lengkapi jumlah penerima.';
+ const [a,b,c]=per;
+ if(Math.min(b,c)<250) return 'Jatah penerima kurang dari 250 g. Pertimbangkan untuk mengurangi jumlah penerima atau menyesuaikan persentase.';
+ if(c<b*0.6) return 'Jatah fakir miskin lebih sedikit daripada kerabat. Disarankan meninjau kembali pembagian agar lebih berpihak kepada fakir miskin.';
+ if(a>b*1.5||a>c*1.5) return 'Jatah shohibul kurban jauh lebih besar dibandingkan penerima lain. Disarankan meninjau kembali pembagian.';
+ if(Math.max(a,b,c)>3000) return 'Jatah melebihi 3 kg per orang. Pastikan daging dapat dikelola dan disimpan dengan baik.';
+ return 'Pembagian sudah proporsional.';
+}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',hitung));
+document.querySelectorAll('[data-kg]').forEach(b=>b.addEventListener('click',()=>{$('total').value=b.dataset.kg;hitung()}));
+hitung();
+
+})();
+</script>
+</body>
+</html>
